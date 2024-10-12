@@ -1,0 +1,32 @@
+/* Styles for the project list container */
+.project-list h2 {
+  text-align: center;
+}
+.project-list {
+  color: black;
+  background-color: #f9f9f9;
+  padding: 20px; /* Padding around the list for spacing */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Shadow for depth */
+}
+
+/* Increase specificity by targeting the Angular component's class */
+.project-list mat-list mat-list-item {
+  accent-color: #333333 !important;
+  background-color: transparent; /* Remove default background color */
+}
+
+/* Further specificity for hover state */
+.project-list mat-list mat-list-item:hover {
+  background-color: rgb(53, 126, 185) !important;
+  color: #f9f9f9 !important; /* This ensures the text color changes on hover */
+}
+
+/* Apply hover effect to the entire mat-list-item, including span */
+.project-list mat-list mat-list-item:hover span {
+  color: white !important; /* Ensure text within span also changes color on hover */
+}
+
+.project-list mat-list mat-list-item span {
+  color: #333333
+}
