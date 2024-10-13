@@ -17,7 +17,7 @@ class ProjectRepresentation {
 }
 
 @Component({
-  selector: 'app-contact',
+  selector: 'app-project',
   standalone: true,
   imports: [
     NgIf,
@@ -25,66 +25,36 @@ class ProjectRepresentation {
     MatListItem,
     NgForOf
   ],
-  templateUrl: './contact.component.html',
-  styleUrl: './contact.component.css',
-  encapsulation: ViewEncapsulation.None,
-  animations:[
-    trigger('detailAnimation',[
-      state('hidden',style({
-        opacity: 0,
-        height: 0,
-        overflow: 'hidden'
-
-      })  ),
-      state('visible',style({
-        opacity: 1,
-        height: '*',
-        overflow: 'visible'
-      })  ),
-     transition('hidden => visible', [animate('500ms ease-in')]),
-     transition('visible => hidden', [animate('500ms ease-out')
-       ]  )
-  ] )  ]
+  templateUrl: './project.component.html',
+  styleUrl: './project.component.css'
 })
-export class ContactComponent implements OnInit {
+export class ProjectComponent implements OnInit {
  result: string = " ";
 
   constructor(private httpService : BackendService) {  }
-  hasError: boolean = false;
-  errorMessage: string = " ";
+
   projects: ProjectRepresentation[] = [];
+
+
   ngOnInit(): void {
     this.httpService.fetchData("/api/projects").subscribe(this.observerData());
-
   }
 
   private observerData(): Observer<any>{
-
     return {
       complete : () => {},
       next: (value) => {
 
-       console.log("Value-from-server",value);
-//       const correctedValue = value.replace(/'/g, '"');
-  //     this.projects = JSON.parse(correctedValue)["projects"];
-      const originalProjects  = JSON.parse(value)["projects"];
+      console.log("Value-from-server",value);
+      const originalProjects = value?.projects;
 
       for (let project of originalProjects){
         this.projects.push(new ProjectRepresentation(project, false));
       }
-
       },
       error: (error) => {
         console.log("Found Error!!!",error)
-        this.hasError = true;
-        this.errorMessage = JSON.stringify(error.status);
       }
     }
-
   }
-
-
-
-
-
 }

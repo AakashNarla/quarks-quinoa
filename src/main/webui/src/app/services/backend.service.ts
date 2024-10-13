@@ -17,7 +17,7 @@ export class BackendService {
 
   fetchData(path: string) {
     return this.http.get(this.url + path, {
-      responseType: 'text'
+      responseType: 'json'
     })
   }
 
